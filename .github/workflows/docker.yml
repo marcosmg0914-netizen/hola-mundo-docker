@@ -1,4 +1,4 @@
-name: Docker Build and Push
+name: Docker Build, Push and Deploy
 
 on:
   push:
@@ -22,5 +22,8 @@ jobs:
       - name: Construir la imagen Docker
         run: docker build -t yeiko01/hola-mundo:latest .
 
-      - name: Subir la imagen a Docker Hub
+      - name: Subir imagen a Docker Hub
         run: docker push yeiko01/hola-mundo:latest
+
+      - name: Desplegar en Render
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
